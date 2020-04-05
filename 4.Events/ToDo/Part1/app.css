@@ -1,0 +1,12 @@
+.complete {
+    text-decoration: line-through;
+}
+
+button {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+li {
+    margin-top: 10px;
+}
