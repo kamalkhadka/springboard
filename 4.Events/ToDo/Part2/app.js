@@ -42,4 +42,6 @@ todoList.addEventListener('click', function(evt){
             target.parentElement.remove();
         }
     }
+
+    localStorage.setItem('todoList', todoList.innerHTML);
 })
