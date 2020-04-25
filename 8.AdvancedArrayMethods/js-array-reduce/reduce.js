@@ -7,10 +7,10 @@ Examples:
 */
 
 function extractValue(arr, key) {
-    return arr.reduce(function(accum, nextVal){
-        accum.push(nextVal[key]);
-        return accum;
-    },[]);
+  return arr.reduce(function (accum, nextVal) {
+    accum.push(nextVal[key]);
+    return accum;
+  }, []);
 }
 
 /*
@@ -25,17 +25,17 @@ Examples:
 */
 
 function vowelCount(str) {
-   return str.split('').reduce(function(accum, nextVal){
-       let lowerCase = nextVal.toLowerCase();
-        if('aeiou'.indexOf(lowerCase) !== -1){
-            if(accum[lowerCase]){
-                accum[lowerCase] +=1;
-            }else{
-                accum[lowerCase] = 1
-            }
-        }
-        return accum;
-    },{});
+  return str.split("").reduce(function (accum, nextVal) {
+    let lowerCase = nextVal.toLowerCase();
+    if ("aeiou".indexOf(lowerCase) !== -1) {
+      if (accum[lowerCase]) {
+        accum[lowerCase] += 1;
+      } else {
+        accum[lowerCase] = 1;
+      }
+    }
+    return accum;
+  }, {});
 }
 
 /*
@@ -54,11 +54,11 @@ Examples:
 */
 
 function addKeyAndValue(arr, key, value) {
-    return arr.reduce(function(accum, val){
-        val[key] = value;
-        accum.push(val);
-        return accum;
-    },[]);
+  return arr.reduce(function (accum, val) {
+    val[key] = value;
+    accum.push(val);
+    return accum;
+  }, []);
 }
 
 /*
@@ -84,12 +84,15 @@ Examples:
 */
 
 function partition(arr, callback) {
-    return arr.reduce(function(acc, next){
-        if(callback(next)){
-            acc[0].push(next);
-        }else{
-            acc[1].push(next);
-        }
-        return acc;
-    }, [[],[]]);
+  return arr.reduce(
+    function (acc, next) {
+      if (callback(next)) {
+        acc[0].push(next);
+      } else {
+        acc[1].push(next);
+      }
+      return acc;
+    },
+    [[], []]
+  );
 }
