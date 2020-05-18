@@ -1,0 +1,57 @@
+# Instances
+
+Like in JS, you make an instance by calling the class
+ex:
+from collections import Counter
+
+# make instance of counter
+counts = Counter("hello world")
+
+type(counts) # collections.Counter
+
+isinstance(counts, Counter) # true
+
+# Get / set attributes or fine method with . (like JS)
+counts.most_common(1)
+
+    - get/set attribute of object: o.name
+    - call method: o.method()
+
+help(obj) -- show help about object and methods
+dir(obj)  -- list methods/attributes of object
+
+## Classes
+class Triangle:
+    "Right triangle."
+
+    def __init__(self, a, b):
+        "Create traingle from a and b sides."
+        self.a = a
+        self.b = b
+
+    def get_hypotenuse(self):
+        "Get hypotenuse (length of 3rd sides.)"
+        return math.sqrt(self.a ** 2 + self.b ** 2)
+
+    def describe(self):
+        return f"Hello"
+
+## Self
+self is similar to this
+    - this is a bit magical: it automatically gets created
+    - self: is explicit: you must list it as the first argument of methods
+        - it's just a normal variable, otherwise
+
+## Inheritance ##
+class ColoredTriangle(Triangle):
+    def __init__(self, a, b, color):
+        super().__init(a, b)__
+        self.color = color
+
+
+super() is parent, super().__init__(...) is parent initializer
+
+## Documenting instance ##
+
+use def __repr__(self):
+    return f"<Traingle a={self.a} b={self.b}>"
