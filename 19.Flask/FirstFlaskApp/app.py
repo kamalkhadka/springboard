@@ -1,10 +1,11 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, flash, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from random import randint, choice, sample
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "chicken"
+app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 debug = DebugToolbarExtension(app)
 
 
@@ -21,6 +22,33 @@ def home_page():
     """
     return html
 
+@app.route("/old-home-page")
+def redirect_to_home():
+    """Redirects to new home page"""
+    return redirect("/")
+
+MOVIES = {"Amadeus", "Chicken Run", "Dances With Wolves"}
+
+@app.route("/movies")
+def show_all_movies():
+    """Show list of all movies in fake DB"""
+    return render_template("movies.html", movies = MOVIES)
+
+@app.route("/movies/new", methods=["POST"])
+def add_movie():
+    title = request.form["title"]
+    # Add to pretend DB
+    if title in MOVIES:
+        flash("Movie Already Exists", 'error')
+    else:
+        MOVIES.add(title)
+        flash("Created Your Movie!", 'success')
+    
+    return redirect("/movies")
+
+@app.route("/movies/json")
+def get_movies_json():
+    return jsonify(list(MOVIES))
 
 @app.route("/form")
 def show_form():
