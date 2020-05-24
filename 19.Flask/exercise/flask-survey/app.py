@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import satisfaction_survey
 
@@ -16,16 +16,26 @@ def root():
 
 @app.route("/questions/<int:id>")
 def get_question(id):
-    question = satisfaction_survey.questions[id].question
-    choices = satisfaction_survey.questions[id].choices
-    return render_template("/answer-question.html", question=question, choices = choices, id=id)
+    
+    responses_length = len(responses)
+    if id == responses_length:
+        question = satisfaction_survey.questions[id].question
+        choices = satisfaction_survey.questions[id].choices
+        return render_template("/answer-question.html", question=question, choices = choices, id=id)
+    elif responses_length == len(satisfaction_survey.questions):
+        return redirect("/thank-you")
+    else:
+        flash("You are trying to access an invalid question")
+        return redirect(f"/questions/{responses_length}")
 
 @app.route("/answer", methods=["POST"])
 def answer():
-    id = request.form["id"]
-    id = int(id) + 1
-    if len(satisfaction_survey.questions) > id:
-        answer = request.form["choice"]
-        responses.append(answer)
-        return redirect(f"/questions/{str(id)}")
+    answer = request.form["choice"]
+    responses.append(answer)    
+    if len(satisfaction_survey.questions) > len(responses):
+        return redirect(f"/questions/{len(responses)}")
+    return redirect("/thank-you")
+
+@app.route("/thank-you")
+def thank_you():
     return render_template("/thank-you.html")
