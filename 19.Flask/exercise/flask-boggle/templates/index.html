@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% block title %}Boggle{% endblock %} {% block
+content%}
+<div class="row">
+  <div class="col-md-6 m-auto">
+    <h1
+      class="display-4 text-center font-weight-bold text-uppercase text-info mb-4"
+    >
+      Boggle
+    </h1>
+
+    <div
+      id="alert-msg"
+      class="alert alert-warning mt-2 d-none"
+      role="alert"
+    ></div>
+
+    <div class="row text-center">
+      <div class="col-md-6">
+        <h3 class="display-5">
+          Played: <span id="played">{{played}}</span> times
+        </h3>
+      </div>
+      <div class="col-md-6">
+        <h3>
+          Highest score: <span id="highest-score">{{highest_score}}</span>
+        </h3>
+      </div>
+    </div>
+
+    <table class="table text-center">
+      {% for row in board %}
+      <tr>
+        {% for cell in row %}
+        <td class="border border-secondary text-muted font-weight-bold">
+          {{cell}}
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+    <div class="row mb-4 text-center">
+      <div class="col-md-6">
+        <h2>
+          Time Left: <span id="timer" class="text-danger">60</span
+          ><span class="text-danger"> s</span>
+        </h2>
+      </div>
+      <div class="col-md-6">
+        <h2>
+          Score: <span id="score" class="text-success">0</span
+          ><span class="text-success"> pts</span>
+        </h2>
+      </div>
+    </div>
+    <form id="guess-form">
+      <input
+        id="guess"
+        class="form-control form-control-lg text-center"
+        type="text"
+        placeholder="guess word"
+        name="guess"
+        required
+        autofocus
+      />
+      <div class="d-flex justify-content-center">
+        <button id="guess-submit" class="btn btn-primary btn-lg mt-2">
+          submit
+        </button>
+      </div>
+    </form>
+    <form class="d-none" id="new-game">
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-secondary btn-lg mt-2">new game</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
