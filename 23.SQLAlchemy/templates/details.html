@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{pet.name}} details</title>
+</head>
+<body>
+    <h1>About {{pet.name}}</h1>
+    <ul>
+        <li>Name: {{pet.name}}</li>
+        <li>Species: {{pet.species}} <a href="/species/{{pet.species}}">View all {{pet.species}}</a></li>
+        <li>Hunger: {{pet.hunger}}</li>
+    </ul>
+    <p>{{pet.greet()}}</p>
+    <a href="/">Go Back</a>
+</body>
+</html>
