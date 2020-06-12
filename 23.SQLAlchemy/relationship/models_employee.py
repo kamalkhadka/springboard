@@ -1,6 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
+
 
 def connect_db(app):
     db.app = app
@@ -22,3 +24,6 @@ class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False, unique=True)
     state = db.Column(db.Text, nullable=False, default='CA')
+    dept_code = db.Column(db.Text, db.ForeignKey('departments.dept_code'))
+
+    dept = db.relationship('Department', backref='employees')
