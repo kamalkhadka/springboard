@@ -4,20 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Employee</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
+    <div class="container">
     <h1>Add New Employee</h1>
     <form method="POST">
         {{form.hidden_tag()}}
         {% for field in form 
             if field.widget.input_type != 'hidden' %}
-           <p>
+           <div class="form-group">
             {{field.label}}
-            {{field}}
-        </p>
+            {{field(class_='form-control')}}
+            {% for err in field.errors %}
+            <small class="form-text text-danger">{{err}}</small>
+            {% endfor %}
+            </div>
         {% endfor %}
-        <button>Submit</button> 
+        <button class='btn btn-success btn-lg'>Submit</button> 
     </form>
+</div>
     
 </body>
 </html>

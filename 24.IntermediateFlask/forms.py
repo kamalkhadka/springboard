@@ -15,8 +15,8 @@ class AddSnackForm(FlaskForm):
                           choices=[('ic', 'Ice Cream'), ('chips', 'Potato Chips'), ('candy', 'Candy/Sweets')])
 
 
-class NewEmployeeForm(FlaskForm):
+class EmployeeForm(FlaskForm):
     """ WTForm to add new employee """
-    name = StringField('Employee Name')
+    name = StringField('Employee Name', validators=[InputRequired(message='Name cannot be blank')])
     state = StringField('State')
     dept_code = SelectField('Department Code')

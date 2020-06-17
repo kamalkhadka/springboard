@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block title %}Adopt a Pet{% endblock %} {% block
+content %}
+<main>
+  <section class="jumbotron text-center mb-0">
+    <div class="container">
+      <h1 class="jumbotron-heading">Adopt a Pet</h1>
+      <p class="lead text-muted">
+        Your best friend is waiting for you. Browse our catalog below. You can
+        add a pet as well.
+      </p>
+      <p>
+        <a href="/add" class="btn btn-success btn-lg">Add a Pet</a>
+      </p>
+    </div>
+  </section>
+  <div class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center">Pets Available for Adoption</h2>
+      <div class="row">
+        {% for pet in pets %}
+        <div class="col-md-4 mb-sm-1">
+          <div class="card">
+            {% if pet.photo_url %}
+            <img
+              src="{{pet.photo_url}}"
+              class="card-img-top"
+              alt="{{pet.name}}"
+            />
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">
+                {{pet.name}} {% if pet.available %}<span class="text-success"
+                  >is available</span
+                >
+                {% endif %}
+              </h5>
+
+              {% if pet.notes %}
+              <p class="card-text">
+                {{pet.notes}}
+              </p>
+              {% endif %}
+
+              <a href="/{{pet.id}}" class="btn btn-sm btn-outline-secondary">View</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
