@@ -16,6 +16,27 @@ connect_db(app)
 
 debug = DebugToolbarExtension(app)
 
+import requests
+
+API_BASE_URL = 'http://www.mapquestapi.com/geocoding/v1'
+key = ''
+
+app = Flask(__name__)
+
+@app.route('/address')
+def show_address_form():
+    return render_template('address_form.html')
+
+@app.route('/geocode')
+def get_location():
+    address = request.args['address']
+    res = requests.get(f'{API_BASE_URL}/address', params={'key': key, 'location': address})
+    data = res.json()
+    lat = data['results'][0]['locations'][0]['latLng']['lat']
+    lng = data['results'][0]['locations'][0]['latLng']['lng']
+    print('****************************************************')
+    print(lat, lng)
+
 @app.route('/')
 def home_page():
     """Render home page"""
