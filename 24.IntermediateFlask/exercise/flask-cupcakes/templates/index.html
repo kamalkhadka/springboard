@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupcakes</title>
+</head>
+<body>
+    <ul id="cupcakes">
+
+    </ul>
+    <form>
+        <label for="flavor">Flavor:</label>
+        <input type="text" name="flavor" id="flavor">
+        <br>
+        <label for="size">Size:</label>
+        <input type="text" name="size" id="size">
+        <br>
+        <label for="rating">Rating:</label>
+        <input type="number" name="rating" id="rating" max="10" min="1">
+        <br>
+        <label for="image">Image Url:</label>
+        <input type="url" name="image" id="image">
+        <br>
+        <button id="create-new">Submit</button>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="static/app.js"></script>
+</body>
+</html>
