@@ -1,14 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Title{% endblock %}</title>
-</head>
-<body>
-    <div class="container">
-        {% block content %}
-        {% endblock %}
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark justify-content-between mb-4">
+        <div class="container">
+        <a href="/" class="navbar-brand">Home</a>
+        <ul class="nav">
+            {% if 'username' in session %}
+            <li class="nav-item">
+              <a href="/logout" class="btn btn-outline-primary">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="/login" class="btn btn-outline-success mr-1">Login</a>
+            </li>
+            <li class="nav-item">
+              <a href="/register" class="btn btn-outline-success">Sign up</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
     </div>
-</body>
+      </nav>
+
+    <div class="container">
+      {% for msg in get_flashed_messages() %} 
+      <div class="alert alert-primary">
+      {{msg}}
+    </div>
+      {% endfor %} {% block
+      content %} {% endblock %}
+    </div>
+  </body>
 </html>
