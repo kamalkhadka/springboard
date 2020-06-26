@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Tweets{% endblock %}
+{% block content %}
+<h1>Tweets</h1>
+<form method="post">
+    {{form.hidden_tag()}}
+
+    {% for field in form
+        if field.widget.input_type != 'hidden' %}
+
+    <p>
+        {{ field.label }}
+        {{ field(class_="form-control") }}
+
+        {% for error in field.errors %}
+        <span class="form-text text-danger">
+            {{ error }}
+        </span>
+        {% endfor %}
+    </p>
+
+    {% endfor %}
+    <button class="btn btn-success" type="submit">Post Tweet</button>
+</form>
+<ul>
+    {% for tweet in tweets %}
+    <li><b>{{tweet.user.username}}</b> - {{tweet.text}}
+    {% if session['user_id'] == tweet.user_id %}
+    <form action="/tweets/{{tweet.id}}" method="post" style="display: inline;">
+        <button class="btn btn-sm btn-danger">X</button>
+    </form>
+    {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-ligh bg-primary justify-content-between">
+        <div class="container">
+            <a href="/" class="navbar-branc text-light">Stupid Twitter</a>
+            <ul class="nav navbar-nav flex-row float-right">
+                {% if session['user_id'] %}
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link pr-3 text-light">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="/login" class="nav-link pr-3 text-light">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/register" class="nav-link text-light">Sign up</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 2em;">
+        {% for msg in get_flashed_messages() %}
+        <div class="alert alert-danger">{{msg}}</div>
+        {% endfor %}
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
