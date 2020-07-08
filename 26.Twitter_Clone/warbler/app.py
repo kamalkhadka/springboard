@@ -255,6 +255,7 @@ def delete_user():
 
     return redirect("/signup")
 
+
 @app.route('/users/add_like/<int:message_id>', methods=['POST'])
 def like_message(message_id):
     message = Message.query.get_or_404(message_id)
@@ -263,10 +264,12 @@ def like_message(message_id):
     db.session.commit()
     return redirect('/')
 
+
 @app.route('/users/dislike/<int:message_id>', methods=['POST'])
 def dislike_message(message_id):
     message = Message.query.get_or_404(message_id)
-    like = Likes.query.filter(Likes.message_id == message.id, Likes.user_id == g.user.id).first()
+    like = Likes.query.filter(
+        Likes.message_id == message.id, Likes.user_id == g.user.id).first()
     db.session.delete(like)
     db.session.commit()
     return redirect('/')
@@ -302,7 +305,11 @@ def messages_add():
 def messages_show(message_id):
     """Show a message."""
 
-    msg = Message.query.get(message_id)
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    msg = Message.query.get_or_404(message_id)
     return render_template('messages/show.html', message=msg)
 
 
@@ -314,11 +321,14 @@ def messages_destroy(message_id):
         flash("Access unauthorized.", "danger")
         return redirect("/")
 
-    msg = Message.query.get(message_id)
-    db.session.delete(msg)
-    db.session.commit()
+    msg = Message.query.get_or_404(message_id)
+    if msg.user_id == g.user.id:
+        db.session.delete(msg)
+        db.session.commit()
+        return redirect(f"/users/{g.user.id}")
 
-    return redirect(f"/users/{g.user.id}")
+    flash("Access unauthorized.", "danger")
+    return redirect("/")
 
 
 ##############################################################################
@@ -343,7 +353,7 @@ def homepage():
                     .limit(100)
                     .all())
         likes = [like.id for like in g.user.likes]
-        
+
         return render_template('home.html', messages=messages, likes=likes)
 
     else:
@@ -361,8 +371,8 @@ def homepage():
 def add_header(req):
     """Add non-caching headers on every request."""
 
-    req.headers["Cache-Control"]="no-cache, no-store, must-revalidate"
-    req.headers["Pragma"]="no-cache"
-    req.headers["Expires"]="0"
-    req.headers['Cache-Control']='public, max-age=0'
+    req.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    req.headers["Pragma"] = "no-cache"
+    req.headers["Expires"] = "0"
+    req.headers['Cache-Control'] = 'public, max-age=0'
     return req
