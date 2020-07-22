@@ -23,6 +23,12 @@ def home_page():
 @app.route('/register', methods=['GET', 'POST'])
 def create_user():
     """Route to display the form to create a user"""
+
+    if session.get('username'):
+        user = User.query.get(session['username'])
+        flash("Unauthorized access")
+        return redirect(f'/users/{user.username}')
+
     form = UserForm()
     if form.validate_on_submit():
         username = form.username.data
@@ -49,18 +55,25 @@ def create_user():
 
 @app.route('/users/<username>')
 def user_page(username):
-    if 'username' in session:
-        user = User.query.get_or_404(username)
-        feedbacks = user.feedbacks
-        return render_template('user.html', user=user, feedbacks=feedbacks)
-    else:
-        flash('Please login first')
-        return redirect('/login')
+    if "username" not in session or username != session['username']:
+            return render_template('401.html')
 
+    user = User.query.get(username)
+    if not user:
+        return redirect('404.html')
+    feedbacks = user.feedbacks
+    return render_template('user.html', user=user, feedbacks=feedbacks)    
+    
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_user():
     """Display a form and validate form"""
+
+    if session.get('username'):
+        user = User.query.get(session['username'])
+        flash("Unauthorized access")
+        return redirect(f'/users/{user.username}')
+
     form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data
@@ -72,7 +85,7 @@ def login_user():
             session['username'] = user.username
             return redirect(f'/users/{user.username}')
         else:
-            flash("You don't have permission")
+            flash("Invalid username / password")
             return redirect('/login')
     return render_template('login.html', form=form)
 
@@ -99,9 +112,12 @@ def add_feedback(username):
             return redirect(f'/users/{username}')
     return render_template('add-feedback.html', username=username, form=form)
 
+
 @app.route('/feedback/<int:feedback_id>/delete', methods=['POST'])
 def delete_feedback(feedback_id):
-    feedback = Feedback.query.get_or_404(feedback_id)
+    feedback = Feedback.query.get(feedback_id)
+    if not feedback:
+        return render_template('404.html')
     if feedback.user.username == session.get('username'):
         db.session.delete(feedback)
         db.session.commit()
@@ -110,11 +126,14 @@ def delete_feedback(feedback_id):
         flash('You don''t have permission')
         return redirect('/')
 
+
 @app.route('/users/<username>/delete', methods=['POST'])
 def delete_user(username):
     """ View function to handle delete user """
     if session['username']:
-        user = User.query.get_or_404(username)
+        user = User.query.get(username)
+        if not user:
+            return render_template('404.html')
         db.session.delete(user)
         db.session.commit()
         session.pop('username')
@@ -123,6 +142,7 @@ def delete_user(username):
         flash('You don''t have a permission')
         return redirect('/')
 
+
 @app.route('/feedback/<int:feedback_id>/update', methods=['GET', 'POST'])
 def update_feedback(feedback_id):
     """ View function to update feedback """
@@ -130,10 +150,13 @@ def update_feedback(feedback_id):
         flash('You are not authorized')
         return redirect('/')
 
-    feedback = Feedback.query.get_or_404(feedback_id)
-    
+    feedback = Feedback.query.get(feedback_id)
+
+    if not feedback:
+        return render_template('404.html')
+
     form = FeedbackForm(obj=feedback)
-    
+
     if session.get('username') == feedback.user.username and form.validate_on_submit():
         feedback.title = form.title.data
         feedback.content = form.content.data
@@ -143,4 +166,4 @@ def update_feedback(feedback_id):
 
         return redirect(f'/users/{feedback.user.username}')
     else:
-        return render_template('update-feedback.html', form=form, feedback_id = feedback.id)
+        return render_template('update-feedback.html', form=form, feedback_id=feedback.id)
