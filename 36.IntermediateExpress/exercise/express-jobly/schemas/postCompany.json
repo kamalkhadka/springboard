@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "handle": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "num_employess": {
+        "type": "integer"
+      },
+      "description": {
+        "type": "string"
+      },
+      "logo_url": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "handle",
+      "name"
+    ]
+  }

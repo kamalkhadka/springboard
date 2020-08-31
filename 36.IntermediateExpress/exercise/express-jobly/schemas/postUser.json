@@ -1,0 +1,88 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "username": "testuser",
+            "password": "hello",
+            "first_name": "test",
+            "last_name": "test last",
+            "email": "test@gmail.com",
+            "photo_url": "https://test.com/test.jpeg"
+        }
+    ],
+    "required": [
+        "username",
+        "password",
+        "first_name",
+        "last_name",
+        "email"
+    ],
+    "properties": {
+        "username": {
+            "$id": "#/properties/username",
+            "type": "string",
+            "title": "The username schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "testuser"
+            ]
+        },
+        "password": {
+            "$id": "#/properties/password",
+            "type": "string",
+            "title": "The password schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "test"
+            ]
+        },
+        "first_name": {
+            "$id": "#/properties/first_name",
+            "type": "string",
+            "title": "The first_name schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "test"
+            ]
+        },
+        "last_name": {
+            "$id": "#/properties/last_name",
+            "type": "string",
+            "title": "The last_name schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "test last"
+            ]
+        },
+        "email": {
+            "$id": "#/properties/email",
+            "type": "string",
+            "title": "The email schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "test@gmail.com"
+            ]
+        },
+        "photo_url": {
+            "$id": "#/properties/photo_url",
+            "type": "string",
+            "title": "The photo_url schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "https://test.com/test.jpeg"
+            ]
+        }
+    },
+    "additionalProperties": true
+}
