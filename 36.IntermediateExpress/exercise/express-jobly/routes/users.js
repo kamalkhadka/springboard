@@ -14,11 +14,11 @@ router.post("/", async (req, res, next) => {
     const newUser = req.body;
     const validateUser = validator.validate(newUser, postUser);
     if (!validateUser.valid)
-      throw new ExpressError(validateUser.errors.map((err) => err.stack));
+      throw new ExpressError(validateUser.errors.map((err) => err.stack), 400);
     const user = await User.create(newUser);
     const payload = { username: user.username, is_admin: user.is_admin };
     const _token = jwt.sign(payload, SECRET_KEY);
-    return res.json({ _token });
+    return res.status(201).json({ _token });
   } catch (error) {
     return next(error);
   }
@@ -36,7 +36,8 @@ router.get("/", async (req, res, next) => {
 router.get("/:username", async (req, res, next) => {
   try {
     const user = await User.findByUsername(req.params.username);
-    if (!user) throw ExpressError("User not found", 404);
+
+    if (!user) throw new ExpressError("User not found", 404);
     return res.json({ user });
   } catch (error) {
     return next(error);

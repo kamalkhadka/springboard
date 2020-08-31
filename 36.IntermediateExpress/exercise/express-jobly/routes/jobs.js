@@ -11,6 +11,7 @@ const router = express.Router();
 
 router.post("/", ensureAdmin, async (req, res, next) => {
   try {
+
     const validator = jsonschema.validate(req.body, postJob);
     if (!validator.valid)
       throw new ExpressError(
@@ -18,7 +19,7 @@ router.post("/", ensureAdmin, async (req, res, next) => {
         400
       );
     const job = await Job.create(req.body);
-    return res.json({ job });
+    return res.status(201).json({ job });
   } catch (error) {
     return next(error);
   }

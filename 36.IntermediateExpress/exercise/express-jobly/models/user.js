@@ -2,9 +2,13 @@ const db = require("../db");
 const bcrypt = require("bcrypt");
 const { BCRYPT_WORK_FACTOR } = require("../config");
 const sqlForPartialUpdate = require("../helpers/partialUpdate");
+const ExpressError = require("../helpers/expressError");
 
 class User {
   static async create(user) {
+    if (await User.findByUsername(user.username))
+      throw new ExpressError("Username already taken", 400);
+
     const hashedPassword = await bcrypt.hash(user.password, BCRYPT_WORK_FACTOR);
     //   if(!user.photo_url) user.photo_url = null;
     const result = await db.query(
@@ -44,7 +48,6 @@ class User {
     );
 
     const user = results.rows[0];
-
     return user;
   }
 

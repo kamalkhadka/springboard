@@ -34,8 +34,6 @@ class Job {
       }
     }
 
-    console.log(query);
-
     const results = await db.query(`${query} ORDER BY date_posted DESC`);
     return results.rows;
   }

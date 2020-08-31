@@ -100,6 +100,7 @@ router.patch("/:handle", ensureAdmin, async (req, res, next) => {
 // DELETE /companies/:handle
 router.delete("/:handle", ensureAdmin, async (req, res, next) => {
   try {
+    console.log("HERE");
     const company = await Company.findByHandle(req.params.handle);
     const message = await company.delete();
     return res.json(message);
