@@ -1,0 +1,7 @@
+.CartItem {
+ border-bottom: 2px solid black;   
+}
+
+.CartItem-title{
+    margin-left: 10px;
+}
