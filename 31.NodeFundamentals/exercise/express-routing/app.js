@@ -12,9 +12,9 @@ app.get("/mean", (req, res, next) => {
     let nums = req.query.nums.split(",");
     nums = validateNums(nums);
     return res.json({
-      "response": {
-        "operation": "mean",
-        "value": mean(nums),
+      response: {
+        operation: "mean",
+        value: mean(nums),
       },
     });
   } catch (e) {
@@ -28,9 +28,9 @@ app.get("/median", (req, res, next) => {
     let nums = req.query.nums.split(",");
     nums = validateNums(nums);
     return res.json({
-      "response": {
-        "operation": "median",
-        "value": median(nums),
+      response: {
+        operation: "median",
+        value: median(nums),
       },
     });
   } catch (e) {
@@ -44,13 +44,30 @@ app.get("/mode", (req, res, next) => {
     let nums = req.query.nums.split(",");
     nums = validateNums(nums);
     return res.json({
-      "response": {
-        "operation": "mode",
-        "value": mode(nums)
+      response: {
+        operation: "mode",
+        value: mode(nums),
       },
     });
   } catch (e) {
     next(e);
+  }
+});
+
+app.use("/all", (req, res, next) => {
+  try {
+    let nums = req.query.nums.split(",");
+    nums = validateNums(nums);
+    return res.json({
+      response: {
+        operation: "all",
+        mean: mean(nums),
+        median: median(nums),
+        mode: mode(nums),
+      },
+    });
+  } catch (error) {
+    return next(error);
   }
 });
 

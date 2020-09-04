@@ -5,6 +5,7 @@ const ExpressError = require("./expressError");
 app = express();
 
 app.use(express.json());
+app.use(express.static('public'))
 app.use("/items", userRoutes);
 
 // 404 handler
