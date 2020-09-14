@@ -59,7 +59,7 @@ afterAll(async () => {
 });
 
 describe("GET /jobs", () => {
-  test("Respond with list of jobs for authenticated user", async () => {
+  test("Respond with list of jobs for authenticated user and admin", async () => {
     const response = await request(app)
       .get("/jobs")
       .send({ _token: adminUserToken });
