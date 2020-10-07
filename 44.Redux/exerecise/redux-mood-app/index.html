@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Redux Demo</title>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+      }
+      .center {
+        margin: auto;
+        margin-bottom: 20px;
+      }
+      button {
+       margin: 5px;   
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="mood" class="center"></div>
+
+    </div>
+    <div class="container center">
+        <button id="happy">Happy</button>
+        <button id="sad">Sad</button>
+        <button id="angry">Angry</button>
+        <button id="confused">Confused</button>
+      </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+    <script src="setupRedux.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

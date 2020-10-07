@@ -1,0 +1,25 @@
+.Meme-Container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.Meme-TopText {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.Meme-BottomText {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.Meme-Image {
+    width: 500px;
+}
