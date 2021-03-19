@@ -8,7 +8,7 @@ kiwisolver==1.2.0
 matplotlib==3.2.1
 mondrian-art==0.1.2
 numpy==1.18.4
-Pillow==6.2.2
+Pillow==8.1.1
 pyparsing==2.4.7
 python-dateutil==2.8.1
 pytz==2020.1
